@@ -14,7 +14,7 @@ namespace Assignment2
              * Create a game object and allow the user to pick which game they would like to play
              */
 
-            Game game = new Game();
+            SevensOut game = new SevensOut();
             game.StartGame();
         }
     }
