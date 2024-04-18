@@ -14,6 +14,40 @@ namespace Assignment2
              * Create a game object and allow the user to pick which game they would like to play
              */
 
+            while (true)
+            {
+                Console.WriteLine("Choose a game:");
+                Console.WriteLine("1. Sevens Out");
+                Console.WriteLine("2. Another Game (Not implemented yet)");
+                Console.WriteLine("3. Exit");
+
+                // Read user input
+                string input = Console.ReadLine();
+
+                // Check user choice
+                switch (input)
+                {
+                    case "1":
+                        PlaySevensOut();
+                        break;
+                    case "2":
+                        Console.WriteLine("This game is not implemented yet.");
+                        break;
+                    case "3":
+                        Console.WriteLine("Exiting the program...");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please enter 1, 2, or 3.");
+                        break;
+                }
+
+                // Add a blank line for clarity
+                Console.WriteLine();
+            }
+        }
+
+        static void PlaySevensOut()
+        {
             SevensOut game = new SevensOut();
             game.StartGame();
         }
