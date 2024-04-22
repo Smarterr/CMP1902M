@@ -18,7 +18,7 @@ namespace Assignment2
             {
                 Console.WriteLine("Choose a game:");
                 Console.WriteLine("1. Sevens Out");
-                Console.WriteLine("2. Another Game (Not implemented yet)");
+                Console.WriteLine("2. Three or More");
                 Console.WriteLine("3. Exit");
 
                 // Read user input
@@ -31,7 +31,7 @@ namespace Assignment2
                         PlaySevensOut();
                         break;
                     case "2":
-                        Console.WriteLine("This game is not implemented yet.");
+                        PlayThreeOrMore();
                         break;
                     case "3":
                         Console.WriteLine("Exiting the program...");
@@ -49,6 +49,13 @@ namespace Assignment2
         static void PlaySevensOut()
         {
             SevensOut game = new SevensOut();
+            game.StartGame();
+        }
+
+        static void PlayThreeOrMore()
+        {
+            Random random = new Random();
+            ThreeOrMore game = new ThreeOrMore(random);
             game.StartGame();
         }
     }
