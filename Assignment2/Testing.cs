@@ -35,7 +35,7 @@ namespace Assignment2
 
             gamecheck.StartGame();
 
-            int sum = gamecheck.SevensOutTotal;
+            int sum = gamecheck.SumOfDieValues;
 
             // Assert that the sum is within the expected range based on the number of dice rolled (3 to 18 for three dice)
             Debug.Assert(sum >= 2 && sum <= 12, $"Sum of die values ({sum}) out of range 2 to 12");

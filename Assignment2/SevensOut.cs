@@ -9,6 +9,7 @@ namespace Assignment2
     internal class SevensOut
     {
         public int SevensOutTotal { get; private set; }
+        public int SumOfDieValues { get; private set; }
 
         // Method to play the Sevens Out game
         public void StartGame()
@@ -34,28 +35,28 @@ namespace Assignment2
                 result2 = die2.Roll();
 
                 // Calculate the sum
-                sum = result1 + result2;
+                SumOfDieValues = result1 + result2;
 
                 // Output the results
                 Console.WriteLine("Results of rolling two dice:");
                 Console.WriteLine("Die 1: " + result1);
                 Console.WriteLine("Die 2: " + result2);
-                Console.WriteLine("Sum of both is: " + sum);
+                Console.WriteLine("Sum of both is: " + SumOfDieValues);
 
                 // Double the sum if a double is rolled
                 if (result1 == result2)
                 {
-                    sum *= 2;
-                    Console.WriteLine("You rolled doubles! Double the sum of these two numbers will be added to your total! (" + sum + ")");
+                    SumOfDieValues *= 2;
+                    Console.WriteLine("You rolled doubles! Double the sum of these two numbers will be added to your total! (" + SumOfDieValues + ")");
                 }
 
                 // Add the sum to the total
-                SevensOutTotal += sum;
+                SevensOutTotal += SumOfDieValues;
 
                 Console.WriteLine("Your current total is: " + SevensOutTotal);
 
                 // Check if the sum is 7 to stop the game instantly
-                if (sum == 7)
+                if (SumOfDieValues == 7)
                 {
                     continueRolling = false;
                 }
