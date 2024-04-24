@@ -1,15 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment2
 {
     internal class SevensOut
     {
+        private Statistics statistics; // Store a reference to the Statistics object
+
         public int SevensOutTotal { get; private set; }
         public int SumOfDieValues { get; private set; }
+
+        // Constructor to accept a Statistics object
+        public SevensOut(Statistics stats)
+        {
+            statistics = stats;
+        }
 
         // Method to play the Sevens Out game
         public void StartGame()
@@ -18,7 +22,7 @@ namespace Assignment2
             Random random = new Random();
 
             // Initialize variables for dice results and sum
-            int result1, result2, sum;
+            int result1, result2;
 
             // Initialize a flag to control rolling and game termination
             bool continueRolling = true;
@@ -26,6 +30,7 @@ namespace Assignment2
             // Loop until the sum is 7 or the user decides to stop
             while (continueRolling)
             {
+
                 // Create two instances of the Die class
                 Die die1 = new Die(random);
                 Die die2 = new Die(random);
@@ -37,6 +42,8 @@ namespace Assignment2
                 // Calculate the sum
                 SumOfDieValues = result1 + result2;
 
+
+
                 // Output the results
                 Console.WriteLine("Results of rolling two dice:");
                 Console.WriteLine("Die 1: " + result1);
@@ -47,7 +54,7 @@ namespace Assignment2
                 if (result1 == result2)
                 {
                     SumOfDieValues *= 2;
-                    Console.WriteLine("You rolled doubles! Double the sum of these two numbers will be added to your total! (" + SumOfDieValues + ")");
+                    Console.WriteLine("You rolled doubles! Adding double the sum to your total.");
                 }
 
                 // Add the sum to the total
@@ -55,10 +62,14 @@ namespace Assignment2
 
                 Console.WriteLine("Your current total is: " + SevensOutTotal);
 
+
                 // Check if the sum is 7 to stop the game instantly
                 if (SumOfDieValues == 7)
                 {
                     continueRolling = false;
+
+                    // Record game result in statistics
+                    statistics.RecordGameResult(SevensOutTotal);
                 }
                 else
                 {
@@ -74,6 +85,9 @@ namespace Assignment2
                         continueRolling = false;
                     }
                 }
+
+
+
             }
 
             // Inform the user that the game has stopped

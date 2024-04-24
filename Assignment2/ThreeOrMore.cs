@@ -24,6 +24,21 @@
 
         public void StartGame()
         {
+            // Ask the user whether they want to play against another player or the computer
+            Console.WriteLine("Choose your opponent:");
+            Console.WriteLine("1. Another player");
+            Console.WriteLine("2. Computer");
+
+            string opponentChoice = Console.ReadLine();
+
+            while (opponentChoice != "1" && opponentChoice != "2")
+            {
+                Console.WriteLine("Invalid choice. Please enter 1 or 2.");
+                opponentChoice = Console.ReadLine();
+            }
+
+            bool playAgainstComputer = opponentChoice == "2";
+
             int currentPlayer = 1; // Player 1 starts
 
             while (player1Points < 20 && player2Points < 20)
@@ -32,15 +47,25 @@
                 Console.WriteLine($"Player 1 Points: {player1Points}");
                 Console.WriteLine($"Player 2 Points: {player2Points}");
                 Console.WriteLine();
-                Console.WriteLine($"Player {currentPlayer}'s turn. Press Enter to roll the dice...");
-                Console.ReadLine();
-                if (currentPlayer == 1)
+                if (playAgainstComputer && currentPlayer == 2)
                 {
-                    RollDice(player1Dice, ref player1Points);
+                    // Computer's turn
+                    Console.WriteLine("Computer's turn. Press Enter to roll the dice...");
+                    Console.ReadLine();
+                    RollDice(player2Dice, ref player2Points, true); // Pass true to indicate it's the computer's turn
                 }
                 else
                 {
-                    RollDice(player2Dice, ref player2Points);
+                    Console.WriteLine($"Player {currentPlayer}'s turn. Press Enter to roll the dice...");
+                    Console.ReadLine();
+                    if (currentPlayer == 1)
+                    {
+                        RollDice(player1Dice, ref player1Points, false); // Pass false for player's turn
+                    }
+                    else
+                    {
+                        RollDice(player2Dice, ref player2Points, false); // Pass false for player's turn
+                    }
                 }
 
                 currentPlayer = currentPlayer == 1 ? 2 : 1; // Switch to the other player
@@ -48,15 +73,29 @@
 
             if (player1Points >= 20)
             {
-                Console.WriteLine("Player 1 wins!");
+                if (playAgainstComputer)
+                {
+                    Console.WriteLine("Congratulations! You won against the computer!");
+                }
+                else
+                {
+                    Console.WriteLine("Player 1 wins!");
+                }
             }
             else
             {
-                Console.WriteLine("Player 2 wins!");
+                if (playAgainstComputer)
+                {
+                    Console.WriteLine("The computer wins!");
+                }
+                else
+                {
+                    Console.WriteLine("Player 2 wins!");
+                }
             }
         }
 
-        private void RollDice(Die[] dice, ref int playerPoints)
+        private void RollDice(Die[] dice, ref int playerPoints, bool isComputerTurn)
         {
             // Roll all dice and display their values
             Console.WriteLine("You rolled:");
@@ -89,7 +128,7 @@
                 playerPoints += 3;
                 Console.WriteLine($"Congratulations! You rolled 3-of-a-kind! You earned 3 points. Total points: {playerPoints}");
             }
-            else if (counts.Contains(2)) // 2-of-a-kind
+            else if (counts.Contains(2) && !isComputerTurn) // 2-of-a-kind, only prompt for reroll if it's not the computer's turn
             {
                 Console.WriteLine("You rolled 2-of-a-kind. Do you want to reroll the remaining dice? (Y/N)");
                 string choice = Console.ReadLine().ToUpper();
@@ -98,7 +137,7 @@
                     RollRemainingDice(dice, ref playerPoints);
                 }
             }
-            else
+            else // No winning combination or it's the computer's turn
             {
                 Console.WriteLine("No winning combination. Try again!");
             }

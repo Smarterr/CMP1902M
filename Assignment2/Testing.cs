@@ -28,10 +28,10 @@ namespace Assignment2
 
         }
 
-        public static void TestSevensOut()
+        public static void TestSevensOut(Statistics statistics)
         {
             // Create a Game object
-            SevensOut gamecheck = new SevensOut();
+            SevensOut gamecheck = new SevensOut(statistics);
 
             gamecheck.StartGame();
 

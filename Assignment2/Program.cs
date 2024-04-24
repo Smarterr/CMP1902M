@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment2
 {
@@ -10,53 +6,64 @@ namespace Assignment2
     {
         static void Main(string[] args)
         {
-            /*
-             * Create a game object and allow the user to pick which game they would like to play
-             */
+            Statistics statistics = new Statistics(); // Create an instance of Statistics class
 
             while (true)
             {
-                Console.WriteLine("Choose a game:");
-                Console.WriteLine("1. Sevens Out");
-                Console.WriteLine("2. Three or More");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("Choose an option:");
+                Console.WriteLine("1. Play Sevens Out");
+                Console.WriteLine("2. Play Three or More");
+                Console.WriteLine("3. View Statistics");
+                Console.WriteLine("4. Exit");
 
-                // Read user input
                 string input = Console.ReadLine();
 
-                // Check user choice
                 switch (input)
                 {
                     case "1":
-                        PlaySevensOut();
+                        PlaySevensOut(statistics);
                         break;
                     case "2":
-                        PlayThreeOrMore();
+                        PlayThreeOrMore(statistics);
                         break;
                     case "3":
+                        ViewStatistics(statistics);
+                        break;
+                    case "4":
                         Console.WriteLine("Exiting the program...");
                         return;
                     default:
-                        Console.WriteLine("Invalid choice. Please enter 1, 2, or 3.");
+                        Console.WriteLine("Invalid choice. Please enter 1, 2, 3, or 4.");
                         break;
                 }
 
-                // Add a blank line for clarity
                 Console.WriteLine();
             }
         }
 
-        static void PlaySevensOut()
+        static void PlaySevensOut(Statistics statistics)
         {
-            SevensOut game = new SevensOut();
+            SevensOut game = new SevensOut(statistics); // Pass the Statistics object
             game.StartGame();
         }
 
-        static void PlayThreeOrMore()
+        static void PlayThreeOrMore(Statistics statistics)
         {
             Random random = new Random();
             ThreeOrMore game = new ThreeOrMore(random);
             game.StartGame();
+        }
+
+        static void ViewStatistics(Statistics statistics)
+        {
+            if (statistics.HasGameResults())
+            {
+                statistics.PrintSummary();
+            }
+            else
+            {
+                Console.WriteLine("No game results available. Please play a game first.");
+            }
         }
     }
 }
