@@ -3,33 +3,60 @@
     internal class ThreeOrMore
     {
         private Random random;
-        private Die[] dice;
-        private int totalPoints;
+        private Die[] player1Dice;
+        private Die[] player2Dice;
+        private int player1Points;
+        private int player2Points;
 
         public ThreeOrMore(Random random)
         {
             this.random = random;
-            dice = new Die[5]; // Array to hold the five dice
+            player1Dice = new Die[5]; // Array to hold the five dice for player 1
+            player2Dice = new Die[5]; // Array to hold the five dice for player 2
             for (int i = 0; i < 5; i++)
             {
-                dice[i] = new Die(random);
+                player1Dice[i] = new Die(random);
+                player2Dice[i] = new Die(random);
             }
-            totalPoints = 0;
+            player1Points = 0;
+            player2Points = 0;
         }
 
         public void StartGame()
         {
-            while (totalPoints < 20)
+            int currentPlayer = 1; // Player 1 starts
+
+            while (player1Points < 20 && player2Points < 20)
             {
-                Console.WriteLine($"Total Points: {totalPoints}");
-                Console.WriteLine("Press Enter to roll the dice...");
+                Console.WriteLine("");
+                Console.WriteLine($"Player 1 Points: {player1Points}");
+                Console.WriteLine($"Player 2 Points: {player2Points}");
+                Console.WriteLine();
+                Console.WriteLine($"Player {currentPlayer}'s turn. Press Enter to roll the dice...");
                 Console.ReadLine();
-                RollDice();
+                if (currentPlayer == 1)
+                {
+                    RollDice(player1Dice, ref player1Points);
+                }
+                else
+                {
+                    RollDice(player2Dice, ref player2Points);
+                }
+
+                currentPlayer = currentPlayer == 1 ? 2 : 1; // Switch to the other player
             }
-            Console.WriteLine("Congratulations! You won the game!");
+
+            if (player1Points >= 20)
+            {
+                Console.WriteLine("Player 1 wins!");
+            }
+            else
+            {
+                Console.WriteLine("Player 2 wins!");
+            }
         }
 
-        private void RollDice()
+        private void RollDice(Die[] dice, ref int playerPoints)
         {
             // Roll all dice and display their values
             Console.WriteLine("You rolled:");
@@ -49,18 +76,18 @@
             // Check for winning conditions
             if (counts.Contains(5)) // 5-of-a-kind
             {
-                totalPoints += 12;
-                Console.WriteLine("Congratulations! You rolled 5-of-a-kind! You earned 12 points.");
+                playerPoints += 12;
+                Console.WriteLine($"Congratulations! You rolled 5-of-a-kind! You earned 12 points. Total points: {playerPoints}");
             }
             else if (counts.Contains(4)) // 4-of-a-kind
             {
-                totalPoints += 6;
-                Console.WriteLine("Congratulations! You rolled 4-of-a-kind! You earned 6 points.");
+                playerPoints += 6;
+                Console.WriteLine($"Congratulations! You rolled 4-of-a-kind! You earned 6 points. Total points: {playerPoints}");
             }
             else if (counts.Contains(3)) // 3-of-a-kind
             {
-                totalPoints += 3;
-                Console.WriteLine("Congratulations! You rolled 3-of-a-kind! You earned 3 points.");
+                playerPoints += 3;
+                Console.WriteLine($"Congratulations! You rolled 3-of-a-kind! You earned 3 points. Total points: {playerPoints}");
             }
             else if (counts.Contains(2)) // 2-of-a-kind
             {
@@ -68,7 +95,7 @@
                 string choice = Console.ReadLine().ToUpper();
                 if (choice == "Y")
                 {
-                    RollRemainingDice();
+                    RollRemainingDice(dice, ref playerPoints);
                 }
             }
             else
@@ -77,7 +104,7 @@
             }
         }
 
-        private void RollRemainingDice()
+        private void RollRemainingDice(Die[] dice, ref int playerPoints)
         {
             Console.WriteLine("Rerolling remaining dice...");
 
@@ -119,18 +146,18 @@
             // Check for winning conditions after rerolling
             if (counts.Contains(5)) // 5-of-a-kind
             {
-                totalPoints += 12;
-                Console.WriteLine("Congratulations! You rolled 5-of-a-kind! You earned 12 points.");
+                playerPoints += 12;
+                Console.WriteLine($"Congratulations! You rolled 5-of-a-kind! You earned 12 points. Total points: {playerPoints}");
             }
             else if (counts.Contains(4)) // 4-of-a-kind
             {
-                totalPoints += 6;
-                Console.WriteLine("Congratulations! You rolled 4-of-a-kind! You earned 6 points.");
+                playerPoints += 6;
+                Console.WriteLine($"Congratulations! You rolled 4-of-a-kind! You earned 6 points. Total points: {playerPoints}");
             }
             else if (counts.Contains(3)) // 3-of-a-kind
             {
-                totalPoints += 3;
-                Console.WriteLine("Congratulations! You rolled 3-of-a-kind! You earned 3 points.");
+                playerPoints += 3;
+                Console.WriteLine($"Congratulations! You rolled 3-of-a-kind! You earned 3 points. Total points: {playerPoints}");
             }
         }
     }
