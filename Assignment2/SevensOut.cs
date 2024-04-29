@@ -69,7 +69,7 @@ namespace Assignment2
                     continueRolling = false;
 
                     // Record game result in statistics
-                    statistics.RecordGameResult(SevensOutTotal);
+                    statistics.RecordSevensOutResult(SevensOutTotal);
                 }
                 else
                 {

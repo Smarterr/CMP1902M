@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Assignment2
+﻿namespace Assignment2
 {
     internal class Statistics
     {
@@ -13,10 +8,13 @@ namespace Assignment2
         public int GamesPlayed { get; private set; }
 
         // List to store all Sevens Out game results
-        private List<int> totals = new List<int>();
+        private List<int> sevensOutTotals = new List<int>();
+
+        // List to store all Three or More game results
+        private List<int> threeOrMoreTotals = new List<int>();
 
         // File path for saving and loading statistics
-        private readonly string filePath = "sevens_out_stats.txt";
+        private readonly string filePath = "game_stats.txt";
 
         public Statistics()
         {
@@ -67,8 +65,8 @@ namespace Assignment2
             }
         }
 
-        // Method to record a new game result
-        public void RecordGameResult(int total)
+        // Method to record a new game result for Sevens Out
+        public void RecordSevensOutResult(int total)
         {
             // Update lowest and highest total
             LowestTotal = Math.Min(LowestTotal, total);
@@ -78,21 +76,52 @@ namespace Assignment2
             GamesPlayed++;
 
             // Add the total to the list
-            totals.Add(total);
+            sevensOutTotals.Add(total);
 
             // Save statistics to file
             SaveStatistics();
         }
 
-        public bool HasGameResults()
+        // Method to record a new game result for Three or More
+        public void RecordThreeOrMoreResult(int total)
         {
-            return totals.Count > 0; // Assuming totals list stores the game results
+            // Update lowest and highest total
+            LowestTotal = Math.Min(LowestTotal, total);
+            HighestTotal = Math.Max(HighestTotal, total);
+
+            // Increment games played
+            GamesPlayed++;
+
+            // Add the total to the list
+            threeOrMoreTotals.Add(total);
+
+            // Save statistics to file
+            SaveStatistics();
         }
 
-        // Method to print statistics summary
-        public void PrintSummary()
+        public bool HasSevensOutResults()
+        {
+            return sevensOutTotals.Count > 0; // Assuming sevensOutTotals list stores the game results
+        }
+
+        public bool HasThreeOrMoreResults()
+        {
+            return threeOrMoreTotals.Count > 0; // Assuming threeOrMoreTotals list stores the game results
+        }
+
+        // Method to print Sevens Out statistics summary
+        public void PrintSevensOutSummary()
         {
             Console.WriteLine("Sevens Out Game Statistics:");
+            Console.WriteLine($"Lowest total: {LowestTotal}");
+            Console.WriteLine($"Highest total: {HighestTotal}");
+            Console.WriteLine($"Games played: {GamesPlayed}");
+        }
+
+        // Method to print Three or More statistics summary
+        public void PrintThreeOrMoreSummary()
+        {
+            Console.WriteLine("Three or More Game Statistics:");
             Console.WriteLine($"Lowest total: {LowestTotal}");
             Console.WriteLine($"Highest total: {HighestTotal}");
             Console.WriteLine($"Games played: {GamesPlayed}");

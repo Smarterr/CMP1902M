@@ -54,13 +54,48 @@
 
         static void ViewStatistics(Statistics statistics)
         {
-            if (statistics.HasGameResults())
+            while (true)
             {
-                statistics.PrintSummary();
-            }
-            else
-            {
-                Console.WriteLine("No game results available. Please play a game first.");
+                Console.WriteLine("Choose an option:");
+                Console.WriteLine("1. View Sevens Out Results");
+                Console.WriteLine("2. View Three or More Results");
+                Console.WriteLine("3. Exit");
+
+                string input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "1":
+                        if (statistics.HasSevensOutResults())
+                        {
+                            statistics.PrintSevensOutSummary();
+                        }
+                        else
+                        {
+                            Console.WriteLine("No Sevens Out results available | You haven't played any games!");
+                        }
+
+                        break;
+                    case "2":
+                        if (statistics.HasThreeOrMoreResults())
+                        {
+                            statistics.PrintThreeOrMoreSummary();
+                        }
+                        else
+                        {
+                            Console.WriteLine("No Three or More results available | You haven't played any games!");
+                        }
+                        
+                        break;
+                    case "3":
+                        Console.WriteLine("Exiting...");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please enter 1, 2, or 3.");
+                        break;
+                }
+
+                Console.WriteLine();
             }
         }
     }
