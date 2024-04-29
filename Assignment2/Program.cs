@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Assignment2
+﻿namespace Assignment2
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Statistics statistics = new Statistics(); // Create an instance of Statistics class
 
