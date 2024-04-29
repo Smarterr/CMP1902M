@@ -1,4 +1,8 @@
-﻿namespace Assignment2
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace Assignment2
 {
     internal class Statistics
     {
@@ -90,7 +94,7 @@
             // Add the number of turns to the list
             threeOrMoreTurns.Add(turns);
 
-            // Update quickest win
+            // Update the quickest win
             if (QuickestWinTurns == 0 || turns < QuickestWinTurns)
             {
                 QuickestWinTurns = turns;
@@ -101,7 +105,7 @@
                 QuickestWinner = "Player 2"; // If multiple games have the same quickest win turns, set the winner accordingly
             }
 
-            // Update slowest win
+            // Update the slowest win
             if (turns > SlowestWinTurns)
             {
                 SlowestWinTurns = turns;

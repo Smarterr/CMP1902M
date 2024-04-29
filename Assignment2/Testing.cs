@@ -1,11 +1,7 @@
-﻿using Assignment2;
+﻿using Assignment2; // Import the necessary namespaces
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment2
 {
@@ -15,8 +11,7 @@ namespace Assignment2
          * This class is testing both games and the dice class.
          */
 
-        //Method
- 
+        //Method to test the Die class
         public static void TestDie()
         {
             // Create a Die object
@@ -25,9 +20,9 @@ namespace Assignment2
             // Tests that the die roll is in between 1 and 6
             int rollResult = diecheck.Roll();
             Debug.Assert(rollResult is >= 1 and <= 6, $"Die roll result ({rollResult}) out of range.");
-
         }
 
+        // Method to test the ThreeOrMore game
         public static void TestThreeOrMore(Statistics statistics)
         {
             // Create a random object

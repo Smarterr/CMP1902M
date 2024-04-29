@@ -1,4 +1,6 @@
-﻿namespace Assignment2
+﻿using System;
+
+namespace Assignment2
 {
     internal class ThreeOrMore
     {
@@ -27,6 +29,15 @@
 
         public void StartGame()
         {
+            Console.WriteLine("Rules:");
+            Console.WriteLine("- Roll all 5 dice hoping for a 3-of-a-kind or better.");
+            Console.WriteLine("- If 2-of-a-kind is rolled, player may choose to rethrow all, or the remaining dice.");
+            Console.WriteLine("- 3-of-a-kind: 3 points");
+            Console.WriteLine("- 4-of-a-kind: 6 points");
+            Console.WriteLine("- 5-of-a-kind: 12 points");
+            Console.WriteLine("- First to a total of 20 wins!");
+            Console.WriteLine("");
+            
             // Ask the user whether they want to play against another player or the computer
             Console.WriteLine("Choose your opponent:");
             Console.WriteLine("1. Another player");
@@ -53,6 +64,7 @@
                 Console.WriteLine($"Player 1 Points: {Player1Points}");
                 Console.WriteLine($"Player 2 Points: {Player2Points}");
                 Console.WriteLine();
+
                 if (playAgainstComputer && currentPlayer == 2)
                 {
                     // Computer's turn

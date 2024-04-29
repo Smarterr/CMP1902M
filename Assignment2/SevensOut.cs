@@ -6,18 +6,25 @@ namespace Assignment2
     {
         private Statistics statistics; // Store a reference to the Statistics object
 
-        public int SevensOutTotal { get; private set; }
-        public int SumOfDieValues { get; private set; }
+        public int SevensOutTotal { get; private set; } // Property to store the total score in Sevens Out game
+        public int SumOfDieValues { get; private set; } // Property to store the sum of the two dice
 
         // Constructor to accept a Statistics object
         public SevensOut(Statistics stats)
         {
-            statistics = stats;
+            statistics = stats; // Initialize the Statistics object
         }
 
         // Method to play the Sevens Out game
         public void StartGame()
         {
+            Console.WriteLine("Rules:");
+            Console.WriteLine("- Roll the two dice.");
+            Console.WriteLine("- If the sum is 7 stop.");
+            Console.WriteLine("- Any other number should be added to a total.");
+            Console.WriteLine("- If it is a double - add double the total to your score (3,3 would add 12 to your total)");
+            Console.WriteLine("");
+
             // Create a single instance of Random to share among all dice
             Random random = new Random();
 
@@ -30,7 +37,6 @@ namespace Assignment2
             // Loop until the sum is 7 or the user decides to stop
             while (continueRolling)
             {
-
                 // Create two instances of the Die class
                 Die die1 = new Die(random);
                 Die die2 = new Die(random);
@@ -41,8 +47,6 @@ namespace Assignment2
 
                 // Calculate the sum
                 SumOfDieValues = result1 + result2;
-
-
 
                 // Output the results
                 Console.WriteLine("Results of rolling two dice:");
@@ -61,7 +65,6 @@ namespace Assignment2
                 SevensOutTotal += SumOfDieValues;
 
                 Console.WriteLine("Your current total is: " + SevensOutTotal);
-
 
                 // Check if the sum is 7 to stop the game instantly
                 if (SumOfDieValues == 7)
@@ -85,9 +88,6 @@ namespace Assignment2
                         continueRolling = false;
                     }
                 }
-
-
-
             }
 
             // Inform the user that the game has stopped
