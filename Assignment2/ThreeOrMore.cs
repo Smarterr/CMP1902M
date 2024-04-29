@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 
 namespace Assignment2
 {
@@ -70,7 +70,7 @@ namespace Assignment2
                     // Computer's turn
                     Console.WriteLine("Computer's turn. Press Enter to roll the dice...");
                     Console.ReadLine();
-                    RollDice(player2Dice, true); // Pass true to indicate it's the computer's turn
+                    RollDice(player2Dice, currentPlayer, true); // Pass true to indicate it's the computer's turn
                 }
                 else
                 {
@@ -78,11 +78,11 @@ namespace Assignment2
                     Console.ReadLine();
                     if (currentPlayer == 1)
                     {
-                        RollDice(player1Dice, false); // Pass false for player's turn
+                        RollDice(player1Dice, currentPlayer, false); // Pass false for player's turn
                     }
                     else
                     {
-                        RollDice(player2Dice, false); // Pass false for player's turn
+                        RollDice(player2Dice, currentPlayer, false); // Pass false for player's turn
                     }
                 }
 
@@ -116,7 +116,7 @@ namespace Assignment2
         }
 
 
-        private void RollDice(Die[] dice, bool isComputerTurn)
+        private void RollDice(Die[] dice, int currentPlayer, bool isComputerTurn)
         {
             // Roll all dice and display their values
             Console.WriteLine("You rolled:");
@@ -136,68 +136,63 @@ namespace Assignment2
             // Check for winning conditions
             if (counts.Contains(5)) // 5-of-a-kind
             {
-                if (isComputerTurn)
+                if (currentPlayer == 1)
                 {
-                    Player2Points += 12;
-                    Console.WriteLine(
-                        $"Congratulations! The computer rolled 5-of-a-kind! It earned 12 points. Total points: {Player2Points}");
+                    Player1Points += 12;
+                    Console.WriteLine($"Congratulations! Player 1 rolled 5-of-a-kind! Player 1 earned 12 points. Total points: {Player1Points}");
                 }
                 else
                 {
-                    Player1Points += 12;
-                    Console.WriteLine(
-                        $"Congratulations! You rolled 5-of-a-kind! You earned 12 points. Total points: {Player1Points}");
+                    Player2Points += 12;
+                    Console.WriteLine($"Congratulations! Player 2 rolled 5-of-a-kind! Player 2 earned 12 points. Total points: {Player2Points}");
                 }
             }
             else if (counts.Contains(4)) // 4-of-a-kind
             {
-                if (isComputerTurn)
+                if (currentPlayer == 1)
                 {
-                    Player2Points += 6;
-                    Console.WriteLine(
-                        $"Congratulations! The computer rolled 4-of-a-kind! It earned 6 points. Total points: {Player2Points}");
+                    Player1Points += 6;
+                    Console.WriteLine($"Congratulations! Player 1 rolled 4-of-a-kind! Player 1 earned 6 points. Total points: {Player1Points}");
                 }
                 else
                 {
-                    Player1Points += 6;
-                    Console.WriteLine(
-                        $"Congratulations! You rolled 4-of-a-kind! You earned 6 points. Total points: {Player1Points}");
+                    Player2Points += 6;
+                    Console.WriteLine($"Congratulations! Player 2 rolled 4-of-a-kind! Player 2 earned 6 points. Total points: {Player2Points}");
                 }
             }
             else if (counts.Contains(3)) // 3-of-a-kind
             {
-                if (isComputerTurn)
+                if (currentPlayer == 1)
                 {
-                    Player2Points += 3;
-                    Console.WriteLine(
-                        $"Congratulations! The computer rolled 3-of-a-kind! It earned 3 points. Total points: {Player2Points}");
+                    Player1Points += 3;
+                    Console.WriteLine($"Congratulations! Player 1 rolled 3-of-a-kind! Player 1 earned 3 points. Total points: {Player1Points}");
                 }
                 else
                 {
-                    Player1Points += 3;
-                    Console.WriteLine(
-                        $"Congratulations! You rolled 3-of-a-kind! You earned 3 points. Total points: {Player1Points}");
+                    Player2Points += 3;
+                    Console.WriteLine($"Congratulations! Player 2 rolled 3-of-a-kind! Player 2 earned 3 points. Total points: {Player2Points}");
                 }
             }
-            else if
-                (counts.Contains(2) &&
-                 !isComputerTurn) // 2-of-a-kind, only prompt for reroll if it's not the computer's turn
+            else if (counts.Contains(2) && !isComputerTurn) // 2-of-a-kind, only prompt for reroll if it's player 2's turn
             {
                 Console.WriteLine("You rolled 2-of-a-kind. Do you want to reroll the remaining dice? (Y/N)");
                 string choice = Console.ReadLine().ToUpper();
                 if (choice == "Y")
                 {
-                    RollRemainingDice(dice, isComputerTurn);
+                    RollRemainingDice(dice, currentPlayer, isComputerTurn);
                 }
             }
-            else // No winning combination or it's the computer's turn
+            else // No winning combination or it's not player 2's turn
             {
                 Console.WriteLine("No winning combination. Try again!");
             }
         }
 
 
-        private void RollRemainingDice(Die[] dice, bool isComputerTurn)
+
+
+
+        private void RollRemainingDice(Die[] dice, int currentPlayer, bool isComputerTurn)
         {
             Console.WriteLine("Rerolling remaining dice...");
 
@@ -239,47 +234,41 @@ namespace Assignment2
             // Check for winning conditions after rerolling
             if (counts.Contains(5)) // 5-of-a-kind
             {
-                if (isComputerTurn)
+                if (currentPlayer == 1)
                 {
-                    Player2Points += 12;
-                    Console.WriteLine(
-                        $"Congratulations! The computer rolled 5-of-a-kind! It earned 12 points. Total points: {Player2Points}");
+                    Player1Points += 12;
+                    Console.WriteLine($"Congratulations! Player 1 rolled 5-of-a-kind! Player 1 earned 12 points. Total points: {Player1Points}");
                 }
                 else
                 {
-                    Player1Points += 12;
-                    Console.WriteLine(
-                        $"Congratulations! You rolled 5-of-a-kind! You earned 12 points. Total points: {Player1Points}");
+                    Player2Points += 12;
+                    Console.WriteLine($"Congratulations! Player 2 rolled 5-of-a-kind! Player 2 earned 12 points. Total points: {Player2Points}");
                 }
             }
             else if (counts.Contains(4)) // 4-of-a-kind
             {
-                if (isComputerTurn)
+                if (currentPlayer == 1)
                 {
-                    Player2Points += 6;
-                    Console.WriteLine(
-                        $"Congratulations! The computer rolled 4-of-a-kind! It earned 6 points. Total points: {Player2Points}");
+                    Player1Points += 6;
+                    Console.WriteLine($"Congratulations! Player 1 rolled 4-of-a-kind! Player 1 earned 6 points. Total points: {Player1Points}");
                 }
                 else
                 {
-                    Player1Points += 6;
-                    Console.WriteLine(
-                        $"Congratulations! You rolled 4-of-a-kind! You earned 6 points. Total points: {Player1Points}");
+                    Player2Points += 6;
+                    Console.WriteLine($"Congratulations! Player 2 rolled 4-of-a-kind! Player 2 earned 6 points. Total points: {Player2Points}");
                 }
             }
             else if (counts.Contains(3)) // 3-of-a-kind
             {
-                if (isComputerTurn)
+                if (currentPlayer == 1)
                 {
-                    Player2Points += 3;
-                    Console.WriteLine(
-                        $"Congratulations! The computer rolled 3-of-a-kind! It earned 3 points. Total points: {Player2Points}");
+                    Player1Points += 3;
+                    Console.WriteLine($"Congratulations! Player 1 rolled 3-of-a-kind! Player 1 earned 3 points. Total points: {Player1Points}");
                 }
                 else
                 {
-                    Player1Points += 3;
-                    Console.WriteLine(
-                        $"Congratulations! You rolled 3-of-a-kind! You earned 3 points. Total points: {Player1Points}");
+                    Player2Points += 3;
+                    Console.WriteLine($"Congratulations! Player 2 rolled 3-of-a-kind! Player 2 earned 3 points. Total points: {Player2Points}");
                 }
             }
         }
