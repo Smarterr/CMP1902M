@@ -85,7 +85,7 @@
         }
 
         // Method to record a new game result for Three Or More
-        public void RecordThreeOrMoreResult(int turns)
+        public void RecordThreeOrMoreResult(int turns, bool computerWins)
         {
             // Add the number of turns to the list
             threeOrMoreTurns.Add(turns);
@@ -94,7 +94,7 @@
             if (QuickestWinTurns == 0 || turns < QuickestWinTurns)
             {
                 QuickestWinTurns = turns;
-                QuickestWinner = "Player 1"; // Assuming Player 1 starts the game
+                QuickestWinner = computerWins ? "Computer" : "Player 1"; // Assuming Player 1 starts the game
             }
             else if (turns == QuickestWinTurns)
             {
@@ -105,7 +105,7 @@
             if (turns > SlowestWinTurns)
             {
                 SlowestWinTurns = turns;
-                SlowestWinner = "Player 1"; // Assuming Player 1 starts the game
+                SlowestWinner = computerWins ? "Computer" : "Player 1"; // Assuming Player 1 starts the game
             }
             else if (turns == SlowestWinTurns)
             {
