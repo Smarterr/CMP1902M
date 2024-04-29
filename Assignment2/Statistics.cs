@@ -6,15 +6,17 @@
         public int LowestTotal { get; private set; }
         public int HighestTotal { get; private set; }
         public int GamesPlayed { get; private set; }
+        public int QuickestWinTurns { get; private set; } // New field to store the quickest win turns
+        public string QuickestWinner { get; private set; } // New field to store the winner of the quickest win
+        public int SlowestWinTurns { get; private set; } // New field to store the slowest win turns
+        public string SlowestWinner { get; private set; } // New field to store the winner of the slowest win
 
         // List to store all Sevens Out game results
         private List<int> sevensOutTotals = new List<int>();
-
-        // List to store all Three or More game results
-        private List<int> threeOrMoreTotals = new List<int>();
+        private List<int> threeOrMoreTurns = new List<int>(); // List to store all Three Or More game turns
 
         // File path for saving and loading statistics
-        private readonly string filePath = "game_stats.txt";
+        private readonly string filePath = "sevens_out_stats.txt";
 
         public Statistics()
         {
@@ -82,21 +84,33 @@
             SaveStatistics();
         }
 
-        // Method to record a new game result for Three or More
-        public void RecordThreeOrMoreResult(int total)
+        // Method to record a new game result for Three Or More
+        public void RecordThreeOrMoreResult(int turns)
         {
-            // Update lowest and highest total
-            LowestTotal = Math.Min(LowestTotal, total);
-            HighestTotal = Math.Max(HighestTotal, total);
+            // Add the number of turns to the list
+            threeOrMoreTurns.Add(turns);
 
-            // Increment games played
-            GamesPlayed++;
+            // Update quickest win
+            if (QuickestWinTurns == 0 || turns < QuickestWinTurns)
+            {
+                QuickestWinTurns = turns;
+                QuickestWinner = "Player 1"; // Assuming Player 1 starts the game
+            }
+            else if (turns == QuickestWinTurns)
+            {
+                QuickestWinner = "Player 2"; // If multiple games have the same quickest win turns, set the winner accordingly
+            }
 
-            // Add the total to the list
-            threeOrMoreTotals.Add(total);
-
-            // Save statistics to file
-            SaveStatistics();
+            // Update slowest win
+            if (turns > SlowestWinTurns)
+            {
+                SlowestWinTurns = turns;
+                SlowestWinner = "Player 1"; // Assuming Player 1 starts the game
+            }
+            else if (turns == SlowestWinTurns)
+            {
+                SlowestWinner = "Player 2"; // If multiple games have the same slowest win turns, set the winner accordingly
+            }
         }
 
         public bool HasSevensOutResults()
@@ -106,7 +120,7 @@
 
         public bool HasThreeOrMoreResults()
         {
-            return threeOrMoreTotals.Count > 0; // Assuming threeOrMoreTotals list stores the game results
+            return threeOrMoreTurns.Count > 0; // Assuming threeOrMoreTurns list stores the game results
         }
 
         // Method to print Sevens Out statistics summary
@@ -118,12 +132,12 @@
             Console.WriteLine($"Games played: {GamesPlayed}");
         }
 
-        // Method to print Three or More statistics summary
+        // Method to print Three Or More statistics summary
         public void PrintThreeOrMoreSummary()
         {
-            Console.WriteLine("Three or More Game Statistics:");
-            Console.WriteLine($"Lowest total: {LowestTotal}");
-            Console.WriteLine($"Highest total: {HighestTotal}");
+            Console.WriteLine("Three Or More Game Statistics:");
+            Console.WriteLine($"Quickest win: {QuickestWinTurns} turns - {QuickestWinner}");
+            Console.WriteLine($"Slowest win: {SlowestWinTurns} turns - {SlowestWinner}");
             Console.WriteLine($"Games played: {GamesPlayed}");
         }
     }

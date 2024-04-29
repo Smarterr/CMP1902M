@@ -7,10 +7,12 @@
         private Die[] player2Dice;
         private int player1Points;
         private int player2Points;
+        private Statistics statistics; // Add a reference to the Statistics object
 
-        public ThreeOrMore(Random random)
+        public ThreeOrMore(Random random, Statistics statistics) // Update the constructor to accept Statistics object
         {
             this.random = random;
+            this.statistics = statistics; // Initialize the Statistics object
             player1Dice = new Die[5]; // Array to hold the five dice for player 1
             player2Dice = new Die[5]; // Array to hold the five dice for player 2
             for (int i = 0; i < 5; i++)
@@ -40,9 +42,12 @@
             bool playAgainstComputer = opponentChoice == "2";
 
             int currentPlayer = 1; // Player 1 starts
+            int turns = 0; // Variable to track the number of turns
 
             while (player1Points < 20 && player2Points < 20)
             {
+                turns++; // Increment the number of turns
+
                 Console.WriteLine("");
                 Console.WriteLine($"Player 1 Points: {player1Points}");
                 Console.WriteLine($"Player 2 Points: {player2Points}");
@@ -93,6 +98,9 @@
                     Console.WriteLine("Player 2 wins!");
                 }
             }
+
+            // Record the number of turns in the statistics
+            statistics.RecordThreeOrMoreResult(turns);
         }
 
         private void RollDice(Die[] dice, ref int playerPoints, bool isComputerTurn)

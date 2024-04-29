@@ -5,6 +5,7 @@
         static void Main()
         {
             Statistics statistics = new Statistics(); // Create an instance of Statistics class
+            Random random = new Random(); // Create a Random object
 
             while (true)
             {
@@ -22,7 +23,7 @@
                         PlaySevensOut(statistics);
                         break;
                     case "2":
-                        PlayThreeOrMore(statistics);
+                        PlayThreeOrMore(statistics, random);
                         break;
                     case "3":
                         ViewStatistics(statistics);
@@ -45,10 +46,9 @@
             game.StartGame();
         }
 
-        static void PlayThreeOrMore(Statistics statistics)
+        static void PlayThreeOrMore(Statistics statistics, Random random)
         {
-            Random random = new Random();
-            ThreeOrMore game = new ThreeOrMore(random);
+            ThreeOrMore game = new ThreeOrMore(random, statistics);
             game.StartGame();
         }
 
