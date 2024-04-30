@@ -102,7 +102,8 @@ namespace Assignment2
             }
             else if (turns == QuickestWinTurns)
             {
-                QuickestWinner = "Player 2"; // If multiple games have the same quickest win turns, set the winner accordingly
+                QuickestWinner =
+                    "Player 2"; // If multiple games have the same quickest win turns, set the winner accordingly
             }
 
             // Update the slowest win
@@ -115,6 +116,9 @@ namespace Assignment2
             {
                 SlowestWinner = "Player 2"; // If multiple games have the same slowest win turns, set the winner accordingly
             }
+            
+            // Increment games played
+            GamesPlayed++;
         }
 
         public bool HasSevensOutResults()

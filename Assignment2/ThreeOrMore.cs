@@ -94,10 +94,12 @@ namespace Assignment2
                 if (playAgainstComputer)
                 {
                     Console.WriteLine("Congratulations! You won against the computer!");
+                    statistics.RecordThreeOrMoreResult(turns, false); // Pass false to indicate the computer loses
                 }
                 else
                 {
                     Console.WriteLine("Player 1 wins!");
+                    statistics.RecordThreeOrMoreResult(turns, false); // Pass false to indicate the computer loses
                 }
             }
             else
@@ -187,11 +189,7 @@ namespace Assignment2
                 Console.WriteLine("No winning combination. Try again!");
             }
         }
-
-
-
-
-
+        
         private void RollRemainingDice(Die[] dice, int currentPlayer, bool isComputerTurn)
         {
             Console.WriteLine("Rerolling remaining dice...");
