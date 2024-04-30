@@ -1,7 +1,4 @@
-﻿using Assignment2; // Import the necessary namespaces
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Assignment2
 {
@@ -21,7 +18,22 @@ namespace Assignment2
             int rollResult = diecheck.Roll();
             Debug.Assert(rollResult is >= 1 and <= 6, $"Die roll result ({rollResult}) out of range.");
         }
+        
+        
+        public static void TestSevensOut(Statistics statistics)
+        {
+            // Create a Game object
+            SevensOut gamecheck = new SevensOut(statistics);
 
+            gamecheck.StartGame();
+
+            int sum = gamecheck.SevensOutTotal;
+
+            // Assert that the sum is within the expected range based on the number of dice rolled (3 to 18 for three dice)
+            Debug.Assert(sum is >= 2 and <= 12, $"Sum of die values ({sum}) out of range 2 to 12");
+        }
+
+        
         // Method to test the ThreeOrMore game
         public static void TestThreeOrMore(Statistics statistics)
         {
