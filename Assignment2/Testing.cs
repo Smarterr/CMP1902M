@@ -49,8 +49,8 @@ namespace Assignment2
             int player2Points = game.Player2Points;
 
             // Asserting player points are within valid range
-            Debug.Assert(player1Points >= 0 && player1Points <= 20, "Player 1 points out of range.");
-            Debug.Assert(player2Points >= 0 && player2Points <= 20, "Player 2 points out of range.");
+            Debug.Assert(player1Points is >= 0 and <= 20, "Player 1 points out of range.");
+            Debug.Assert(player2Points is >= 0 and <= 20, "Player 2 points out of range.");
 
             // Asserting both players have different points
             Debug.Assert(player1Points != player2Points, "Players cannot have the same points.");
